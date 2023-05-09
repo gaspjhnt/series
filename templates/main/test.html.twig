@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>test !</h1>
+    {# création de variable #}
+    {% set name = "GJBG" %}
+    {# affichage d'une variable #}
+    <h2>Hello {{ name }} ! </h2>
+
+    {# création de tableau #}
+    {% set colors = ['blue', 'yellow', 'red', 'green'] %}
+
+    {% for color in colors %}
+        <div style="background-color: {{ color }}">{{ color }}</div>
+    {% endfor %}
+
+
+    {% set serie = {
+        title : "Prison cassée",
+        year : 2008
+    } %}
+
+    <H3>Title : {{ serie.title }}</H3>
+
+
+    {# boucle sur clé / valeur #}
+    {% for key,val in serie %}
+        <p>{{ key }} : {{ val }}</p>
+    {% endfor %}
+
+
+    {# quelques filtres ! #}
+
+    <h3>Filtres</h3>
+    <div>{{ name | upper }} : {{ name | length }} lettres</div>
+    <div>Colors : {{ colors | join('-') }}</div>
+    <div>{{ "now" | date('d-m-Y') }}</div>
+
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Test
+{% endblock %}
