@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use ContainerNAoJcXn\get_Container_Private_SerializerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +19,12 @@ class MainController extends AbstractController
     #[Route('/test', name: 'main_test')]
     public function test(): Response
     {
-        return $this->render("main/test.html.twig");
+        $username = "leGaspOfficiel";
+        $serie = ["title" => "Suits", "year" => 2011];
+
+        return $this->render("main/test.html.twig", [
+            "nameOfUser" => $username,
+            "mySerie" => $serie
+        ]);
     }
 }

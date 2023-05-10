@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1>Bonjour {{ nameOfUser }} ! </h1>
 
-    <h1>test !</h1>
+    <p>{{ mySerie.title }} : {{ mySerie.year }}</p>
+
+
     {# création de variable #}
     {% set name = "GJBG" %}
     {# affichage d'une variable #}
