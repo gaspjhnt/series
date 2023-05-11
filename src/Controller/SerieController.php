@@ -17,8 +17,8 @@ class SerieController extends AbstractController
     {
 
         //TODO renvoyer la liste des series
-
-        $series = $serieRepository->findBy([], ["popularity" => "DESC"], 50, 0);
+        $series = $serieRepository->findBestSeries();
+        //$series = $serieRepository->findBy([], ["popularity" => "DESC"], 50, 0);
 
 
         return $this->render('serie/list.html.twig', [
@@ -29,8 +29,15 @@ class SerieController extends AbstractController
     #[Route('/{id}', name: 'show', requirements: ["id" => "\d+"])]
     public function show(int $id, SerieRepository $serieRepository): Response
     {
-        $serie = $serieRepository->find($id);
         //TODO renvoyer le detail d'une serie
+
+        $serie = $serieRepository->find($id);
+
+        if (!$serie){
+            //Permet de lancer une erreur 404
+            throw $this->createNotFoundException("Oops ! Serie not found !");
+        }
+
         return $this->render('serie/show.html.twig',[
             'serie' => $serie
         ]);

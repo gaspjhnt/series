@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Serie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Void_;
 
 /**
  * @extends ServiceEntityRepository<Serie>
@@ -39,28 +40,28 @@ class SerieRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Serie[] Returns an array of Serie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Serie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findBestSeries(){
+        //EN DQL
+
+//        $entityManager = $this->getEntityManager();
+//
+//        $dql = "SELECT s FROM App\Entity\Serie s
+//                WHERE s.vote >= 8
+//                AND s.popularity > 200
+//                ORDER BY s.popularity DESC";
+//
+//        $query = $entityManager->createQuery($dql);
+
+
+        // Avec le queryBuilder
+        $qb = $this->createQueryBuilder('s');
+        $qb->andWhere("s.vote >= 8")
+           ->andWhere("s.popularity > 100")
+           ->addOrderBy("s.popularity", 'DESC');
+
+        $query = $qb->getQuery();
+        $query->setMaxResults(50);
+        return $query->getResult();
+    }
 }

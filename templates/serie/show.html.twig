@@ -2,9 +2,8 @@
 
 {% block body %}
     <h2>Detail of {{ serie.name }}</h2>
-
-    <div class="serie-details">
-
+    <section>
+        <div class="serie-details">
             <div>
                 <img src="{{ asset('img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
             </div>
@@ -18,8 +17,8 @@
                 <div>Aired from {{ serie.firstAirDate | date('Y-m-d') }} to {{ serie.lastAirDate | date('Y-m-d') }}</div>
                 <div>{{ serie.overview | nl2br }}</div>
             </div>
-
-    </div>
+        </div>
+    </section>
 
 {% endblock %}
 

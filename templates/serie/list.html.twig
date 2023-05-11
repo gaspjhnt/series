@@ -6,12 +6,12 @@
     <section class="series-list">
 
         {% for serie in series %}
-            <article>
-                <a href="{{ path('serie_show', {'id': serie.id}) }}" title="View detail about {{ serie.name }}">
+            <a href="{{ path('serie_show', {'id': serie.id}) }}" title="View detail about {{ serie.name }}">
+                <article>
                     <img src="{{ asset('./img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
                     <p>{{ serie.name }}</p>
-                </a>
-            </article>
+                </article>
+            </a>
         {% endfor %}
 
     </section>
