@@ -16,8 +16,10 @@
                 <div>Serie status : {{ serie.status }}</div>
                 <div>Aired from {{ serie.firstAirDate | date('Y-m-d') }} to {{ serie.lastAirDate | date('Y-m-d') }}</div>
                 <div>{{ serie.overview | nl2br }}</div>
+                <a  class="link_button" href="{{ path('serie_update', {'id': serie.id}) }}">EDIT</a>
             </div>
         </div>
+
     </section>
 
 {% endblock %}

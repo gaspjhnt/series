@@ -3,18 +3,45 @@
 {% block body %}
     <h2>List of series</h2>
 
+
+    <div class="flex_between flex_div">
+
+        {% if page > 1%}
+            <a class="link_button" href="{{ path('serie_list', {'page': page - 1}) }}">👈 Previous page</a>
+        {% else %}
+            <div></div>
+        {% endif %}
+
+        {% if page < maxPage %}
+            <a class="link_button" href="{{ path('serie_list', {'page': page + 1}) }}">Next page 👉</a>
+        {% endif %}
+    </div>
+
     <section class="series-list">
 
         {% for serie in series %}
             <a href="{{ path('serie_show', {'id': serie.id}) }}" title="View detail about {{ serie.name }}">
                 <article>
-                    <img src="{{ asset('./img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
+                    <img class="test" src="{{ asset('./img/posters/series/' ~ serie.poster) }}" alt="{{ serie.name }}">
                     <p>{{ serie.name }}</p>
                 </article>
             </a>
         {% endfor %}
 
     </section>
+
+    <div class="flex_between flex_div">
+
+        {% if page > 1%}
+            <a class="link_button" href="{{ path('serie_list', {'page': page - 1}) }}">👈 Previous page</a>
+        {% else %}
+            <div></div>
+        {% endif %}
+
+        {% if page < maxPage %}
+            <a class="link_button" href="{{ path('serie_list', {'page': page + 1}) }}">Next page 👉</a>
+        {% endif %}
+    </div>
 
 {% endblock %}
 

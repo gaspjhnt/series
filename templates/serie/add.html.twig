@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2>Add a new serie</h2>
+    {% embed 'vues/form/serie_form.html.twig' with {'serieForm' : serieForm2}%}
+        {% block h2 %} Add a new Serie {% endblock %}
+        {% block buttonLabel %} Add a new one {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 

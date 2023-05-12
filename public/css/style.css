@@ -29,10 +29,18 @@ a {
 }
 
 .link_button{
-    border: 2px solid blueviolet;
     margin: 5px;
     padding: 5px;
-    border-radius: 30% 5%;
+    font-size: 1.1em;
+    transition: 200ms all;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.link_button:hover{
+    transform: scale(1.06);
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 a:hover {
@@ -89,6 +97,17 @@ nav li {
     grid-gap: 30px;
 
 }
+
+.test{
+    transition: 100ms all;
+}
+
+.test:hover{
+    transform: scale(1.08);
+    border: 3px solid white;
+    border-radius: 10px;
+}
+
 
 .serie-details-infos > div {
     margin-bottom: 1rem;

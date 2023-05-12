@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% embed 'vues/form/serie_form.html.twig' %}
+        {% block h2 %} Update the Serie !  {% endblock %}
+        {% block buttonLabel %} Update {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block title %}
+    {{ parent() }} | Update
+{% endblock %}
