@@ -82,6 +82,10 @@ nav li {
 
 
 
+.error ul li{
+    color: red;
+    list-style-type: none;
+}
 
 /********************** Module  5  Doctrine   **************************/
 

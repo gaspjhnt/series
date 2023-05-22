@@ -73,9 +73,9 @@ class SerieController extends AbstractController
         //Permet d'extraire les données de la requête
         $serieForm->handleRequest($request);
 
-        if ($serieForm->isSubmitted()){
-            //traitement de la donnée
+        if ($serieForm->isSubmitted() && $serieForm->isValid()){
 
+            //traitement de la donnée
             $genres = $serieForm->get('genres')->getData();
             $serie->setGenres(implode(' / ', $genres));
             $serie->setDateCreated(new \DateTime());
