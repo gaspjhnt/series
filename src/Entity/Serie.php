@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use mysql_xdevapi\TableDelete;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
@@ -19,6 +20,7 @@ class Serie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("serie_data")]
     private ?int $id = null;
 
     #[Assert\NotBlank(message: "Serie's name is mandatory !")]
@@ -29,6 +31,7 @@ class Serie
         maxMessage: "Maximum {{ limit }} characters !"
     )]
     #[ORM\Column(length: 255)]
+    #[Groups("serie_data")]
     private ?string $name = null;
 
     #[Assert\Length(
@@ -38,22 +41,27 @@ class Serie
         maxMessage: "Maximum {{ limit }} characters !"
     )]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups("serie_data")]
     private ?string $overview = null;
 
 
     #[Assert\Choice(choices: ["canceled", "ended", "returning"], message: "Value not allowed")]
     #[ORM\Column(length: 50)]
+    #[Groups("serie_data")]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 3, scale: 1)]
     #[Assert\Range(notInRangeMessage: "Not in range !", min: 0, max: 10)]
+    #[Groups("serie_data")]
     private ?string $vote = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    #[Groups("serie_data")]
     private ?string $popularity = null;
 
     #[Assert\Choice(choices: ["drama", "sf", "thriller", "comedy"], message: "Value not allowed")]
     #[ORM\Column(length: 255)]
+    #[Groups("serie_data")]
     private ?string $genres = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -70,6 +78,7 @@ class Serie
     private ?string $poster = null;
 
     #[ORM\Column]
+    #[Groups("serie_data")]
     private ?int $tmdbId = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -79,6 +88,7 @@ class Serie
     private ?\DateTimeInterface $dateModified = null;
 
     #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Season::class, cascade: ['remove'])]
+    #[Groups("serie_data")]
     private Collection $seasons;
 
     public function __construct()
