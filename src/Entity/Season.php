@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\SeasonRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: SeasonRepository::class)]
 class Season
 {
@@ -138,5 +138,14 @@ class Season
         $this->serie = $serie;
 
         return $this;
+    }
+    #[ORM\PrePersist]
+    public function setNewSeason(){
+        $this->setDateCreated(new \DateTime());
+    }
+
+    #[ORM\PreUpdate]
+    public function updateSeason(){
+        $this->setDateModified(new \DateTime());
     }
 }

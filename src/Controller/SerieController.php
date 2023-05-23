@@ -99,9 +99,24 @@ class SerieController extends AbstractController
         $serie = $serieRepository->find($id);
         $serieForm = $this->createForm(SerieType::class, $serie);
 
+        $serieForm->get('genres')->setData(explode(' / ', $serie->getGenres()));
+
         return $this->render('serie/update.html.twig',[
             'serieForm' => $serieForm->createView()
         ]);
+
+    }
+
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'])]
+    public function delete(int $id, SerieRepository $serieRepository){
+
+        $serie = $serieRepository->find($id);
+
+        $serieRepository->remove($serie, true);
+
+        $this->addFlash('success', $serie->getName() . ' has been removed !');
+
+        return $this->redirectToRoute('serie_list');
 
     }
 }
