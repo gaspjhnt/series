@@ -8,6 +8,7 @@ use App\Repository\SeasonRepository;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,18 @@ class SeasonController extends AbstractController
         $seasonForm->handleRequest($request);
 
         if ($seasonForm->isSubmitted() && $seasonForm->isValid()){
+
+            /**
+             * @var UploadedFile $file
+             */
+            $file = $seasonForm->get('poster')->getData();
+
+            if($file){
+                $newFileName = $season->getSerie()->getName() . "-" . $season->getNumber()."-".uniqid().".".$file->guessExtension();
+                $file->move('img/posters/seasons', $newFileName);
+
+                $season->setPoster($newFileName);
+            }
 
             $seasonRepository->save($season, true);
 
