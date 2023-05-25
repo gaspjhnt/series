@@ -20,7 +20,6 @@ class SerieController extends AbstractController
     public function list(SerieRepository $serieRepository, int $page = 1): Response
     {
 
-        //TODO renvoyer la liste des series
         //$series = $serieRepository->findBy([], ["popularity" => "DESC"], 50, 0);
         //$series = $serieRepository->findBestSeries();
 
