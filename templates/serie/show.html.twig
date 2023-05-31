@@ -16,6 +16,11 @@
                 <div>Serie status : {{ serie.status }}</div>
                 <div>Aired from {{ serie.firstAirDate | date('Y-m-d') }} to {{ serie.lastAirDate | date('Y-m-d') }}</div>
                 <div>{{ serie.overview | nl2br }}</div>
+                <div class="flex_div">
+                    <button class="like_button link_button" value="1"> 👍</button>
+                    <button class="like_button link_button" value="0"> 👎</button>
+                    <div> <span id="nbLike">{{ serie.nbLike }}</span> likes</div>
+                </div>
                 <a  class="link_button" href="{{ path('serie_update', {'id': serie.id}) }}">EDIT {{ serie.name }}</a>
                 <a  class="link_button" href="{{ path('serie_delete', {'id': serie.id}) }}" onclick="return confirm('Are you sure to delete {{ serie.name }} ?')">DELETE {{ serie.name }}</a>
                 <a  class="link_button" href="{{ path('season_add', {'id': serie.id}) }}">Add Season</a>
@@ -51,4 +56,33 @@
 
 {% block title %}
     {{ parent() }} | Show {{ serie.name }}
+{% endblock %}
+
+{% block extraJs %}
+    <script>
+
+        let buttons = Array.from(document.getElementsByClassName('like_button'))
+
+        buttons.forEach(function (button) {
+            console.log(button)
+            button.addEventListener("click", function () {
+
+                let value = {'value': this.value}
+
+                fetch("{{ path('api_serie_update_one', {'id' : serie.id}) }}",
+                    {method: 'PUT', body: JSON.stringify(value)})
+                    //then me permet de lancer une callback au retour de ma requête
+                    //j'extrais ici le corps de ma requête à sa voir le json
+                    .then(function (response) {
+                        return response.json()
+                        //le second then récupère le json en paramètre afin d'en faire le traitement
+                    }).then(function (data){
+                        document.getElementById('nbLike').innerText = data.nbLike
+                })
+            })
+        })
+
+
+    </script>
+
 {% endblock %}

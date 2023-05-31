@@ -180,3 +180,8 @@ textarea{
 .seasons{
     margin-top: 15px;
 }
+
+
+.like_button{
+    background: transparent;
+}

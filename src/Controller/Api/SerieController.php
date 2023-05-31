@@ -32,10 +32,27 @@ class SerieController extends AbstractController
     {
     }
 
-    #[Route('', name: 'update_one', methods: ['PUT'])]
-    public function updateOne(int $id): Response
+    #[Route('/{id}', name: 'update_one', methods: ['PUT'])]
+    public function updateOne(int $id, \Symfony\Component\HttpFoundation\Request $request, SerieRepository $serieRepository): Response
     {
+        $serie=$serieRepository->find($id);
+        if($serie){
+            //transforme une string au format json en objet php
+            $data= json_decode($request->getContent());
+            if($data->value) {
+                $serie->setNbLike($serie->getNbLike() + 1);
+            }else{
+                $serie->setNbLike($serie->getNbLike()-1);
+            }
+            $serieRepository->save($serie,true);
+
+            return $this->json(['nbLike' => $serie->getNbLike()]);
+        }
+        return $this->json(['error' => 'Serie not found']);
     }
+
+
+
 
     #[Route('', name: 'add_one', methods: ['POST'])]
     public function addOne(Request $request, SerializerInterface $serializer): Response
